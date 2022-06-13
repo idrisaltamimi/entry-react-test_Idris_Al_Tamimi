@@ -17,15 +17,9 @@ export default class Minicart extends Component {
       }
    }
 
-   hideMinicart = () => {
-      this.props.getMinicartStatus(false)
-      this.setState({ minicart: false })
-   }
+   hideMinicart = () => { this.setState({ minicart: false }) }
    showMinicart = () => {
-      this.setState(prevState => {
-         this.props.getMinicartStatus(!prevState.minicart)
-         return { minicart: !prevState.minicart }
-      })
+      this.setState(prevState => ({ minicart: !prevState.minicart }))
    }
 
 

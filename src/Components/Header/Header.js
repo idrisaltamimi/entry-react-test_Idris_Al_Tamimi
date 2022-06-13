@@ -10,11 +10,6 @@ import upArrow from "../../images/arrow-up.svg"
 import MinicartItems from './MinicartItems'
 
 export default class Header extends Component {
-
-   state = {
-      minicart: false
-   }
-
    minicartList = () => {
       const { checkOutProducts, currentCurrency } = this.props
       const productsCards = uniqProducts(checkOutProducts).map(item => {
@@ -62,19 +57,15 @@ export default class Header extends Component {
       </NavLink>
    })
 
-   getMinicartStatus = (bool) => { this.setState({ minicart: bool }) }
-
    render() {
       const switchArrow = this.props.currencySwitcher ? upArrow : downArrow
-      const headerClass = this.state.minicart ? "header-no-scrollbar" : ""
-      const siteLogoClass = this.state.minicart ? "header-no-scrollbar-logo" : "site-logo--header"
       return (
-         <header className={headerClass}>
+         <header>
             <nav className='navbar--header'>
                {this.navLinks()}
             </nav>
 
-            <img src={siteLogo} alt='site logo' className={siteLogoClass} />
+            <img src={siteLogo} alt='site logo' className="site-logo--header" />
 
             <div className='right--header'>
                <CurrencySwitcher
