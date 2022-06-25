@@ -402,7 +402,9 @@ header {
 }
 
 .page-not-found-container {
+   grid-template: 101px auto auto 101px/5.56% auto 5.56%;
    justify-content: left;
+   white-space: nowrap;
 }
 
 .category-page>h1,
@@ -411,6 +413,20 @@ header {
    grid-column: 2;
    font-weight: 400;
    font-size: 42px;
+}
+
+.not-found-link {
+   grid-row: 3;
+   grid-column: 2;
+   justify-self: start;
+   text-decoration: none;
+   color: #fff;
+   background-color: #5ECE7B;
+   padding: 1rem 1.5rem;
+}
+
+.not-found-link:hover {
+   text-decoration: underline;
 }
 
 .flex {

@@ -97,8 +97,7 @@ export default class Main extends Component {
                      cartProducts={this.cartProducts()}
                   />}
                />
-               {(productIdsArr.length !== 0 || categoriesNames.length !== 0) &&
-                  <Route path='*' element={<PageNotFound />} />}
+               <Route path='*' element={<PageNotFound {...{ categoriesNames, productIdsArr }} />} />
             </Routes>
          </main >
       )
