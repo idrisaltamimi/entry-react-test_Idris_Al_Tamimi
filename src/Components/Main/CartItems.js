@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { countCartItems, add_removeItem } from '../utils'
+import { countCartItems, add_removeItem, currentPrice } from '../utils'
 
 import rightArrow from "../../images/arrow-right.svg"
 import leftArrow from "../../images/arrow-left.svg"
@@ -60,7 +60,7 @@ export default class CartItems extends Component {
       }))
    }
    render() {
-      const { checkOutProducts, id, getCheckedProducts, getRemovedProduct, gallery } = this.props
+      const { checkOutProducts, id, getCheckedProducts, getRemovedProduct, gallery, currentCurrency, prices } = this.props
       const { imageIndex } = this.state
       return (
          <div>
@@ -70,7 +70,7 @@ export default class CartItems extends Component {
                      <span className='bold-span--cart'>{this.props.brand}</span>
                      {this.props.name}
                   </h2>
-                  <p className='product-price--cart'>{this.props.currentCurrency} {this.props.currentPrice}</p>
+                  <p className='product-price--cart'>{currentCurrency} {currentPrice(prices, currentCurrency)}</p>
                   {this.attributes()}
                </section>
                <section className='product-count--cart'>

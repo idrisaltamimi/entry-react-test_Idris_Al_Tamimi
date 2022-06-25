@@ -1,3 +1,6 @@
+import axios from "axios"
+import { GRAPHQL_API } from "../Graphql/queries"
+
 export const add_removeItem = (fun, item) => {
    return fun(item)
 }
@@ -39,4 +42,13 @@ export const uniqProducts = (products) => {
       return order
    })
    return uniqProducts
+}
+
+export const result = async (graphqlQuery, input) => {
+   const queryResult = await axios.post(
+      GRAPHQL_API, {
+      query: graphqlQuery,
+      variables: input
+   })
+   return queryResult.data.data
 }

@@ -1,25 +1,21 @@
 import React, { Component } from 'react'
 import { Routes, Route } from 'react-router'
 import { Link } from 'react-router-dom'
-import { currentPrice, uniqProducts } from '../utils'
+import { uniqProducts } from '../utils'
 
 import Home from './Home'
 import Cart from "./Cart"
 import Pdp from "./Pdp"
 import HomeProducts from './HomeProducts'
 import CartItems from './CartItems'
-
 import cartIconWhite from "../../images/icon-cart-white.svg"
+import PageNotFound from '../PageNotFound'
 
 export default class Main extends Component {
 
-   state = {
-      displayCartBtn: true,
-   }
-
    productsCards = (data) => {
       const { currentCurrency } = this.props
-      const productsCards = data.map(item => {
+      return data.map(item => {
          return (
             <div className='product-card-continer' key={item.id}>
                <Link to={`/product/${item.id}`}
@@ -29,7 +25,6 @@ export default class Main extends Component {
                      currentCurrency={currentCurrency}
                   />
                </Link>
-
                {item.inStock &&
                   <button
                      className='cart-btn divoverlap buttonoverlap'
@@ -37,10 +32,9 @@ export default class Main extends Component {
                      <img src={cartIconWhite} alt='' className=' cart-icon-white' />
                   </button>
                }
-            </div >
+            </div>
          )
       })
-      return productsCards
    }
 
    addToCartBtn = (item) => {
@@ -57,15 +51,13 @@ export default class Main extends Component {
    }
 
    cartProducts = () => {
-      const { checkOutProducts, currentCurrency } = this.props
+      const { checkOutProducts } = this.props
       const productsCards = uniqProducts(checkOutProducts).map(item => {
          return (
             <CartItems
                key={item.id}
                {...item}
                {...this.props}
-               product={item}
-               currentPrice={currentPrice(item.prices, currentCurrency)}
                getCheckedProducts={() => this.props.getCheckedProducts(item)}
                getRemovedProduct={() => this.props.getRemovedProduct(item)}
             />)
@@ -73,47 +65,42 @@ export default class Main extends Component {
       return productsCards
    }
 
-   productDetailPageRoutes = () => {
-      const routes = this.props.products.map(item => {
-         return <Route
-            key={item.id}
-            path={`/product/${item.id}`}
-            element={<Pdp
-               {...item}
-               {...this.props}
-               productData={item}
-            />}
-         />
-      })
-      return routes
-   }
-
    render() {
-      const { categoriesNames, homeCategory } = this.props
+      const { categoriesNames, productIdsArr } = this.props
       return (
          <main>
             <Routes>
-               {categoriesNames.map(item => {
-                  const path = item === homeCategory ? "/" : `/${item}`
-                  return <Route key={item} path={path} element={
-                     <Home category={item}
-                        {...this.props}
-                        productsCards={this.productsCards} />}
-                  >
-                  </Route>
+               {categoriesNames.map((category, index) => {
+                  const path = index === 0 ? "/" : `/${category.name}`
+                  return (
+                     <Route key={category.name} path={path}
+                        element={
+                           <Home
+                              category={category.name}
+                              {...this.props}
+                              productsCards={this.productsCards} />
+                        }
+                     />
+                  )
                })}
 
-               {this.productDetailPageRoutes()}
+               {productIdsArr.map(item => {
+                  return <Route
+                     key={item.id}
+                     path={`/product/${item.id}`}
+                     element={<Pdp id={item.id} {...this.props} />}
+                  />
+               })}
 
-               <Route path='/cart' element={<Cart
-                  {...this.props}
-                  cartProducts={this.cartProducts()}
-               />}
+               <Route path='/cart'
+                  element={<Cart {...this.props}
+                     cartProducts={this.cartProducts()}
+                  />}
                />
-
-               <Route path='*' element={<h1> </h1>} />
+               {(productIdsArr.length !== 0 || categoriesNames.length !== 0) &&
+                  <Route path='*' element={<PageNotFound />} />}
             </Routes>
-         </main>
+         </main >
       )
    }
 }

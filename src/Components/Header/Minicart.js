@@ -17,7 +17,7 @@ export default class Minicart extends Component {
       }
    }
 
-   hideMinicart = () => { this.setState({ minicart: false }) }
+   hideMinicart = () => this.setState({ minicart: false })
    showMinicart = () => {
       this.setState(prevState => ({ minicart: !prevState.minicart }))
    }
@@ -25,14 +25,14 @@ export default class Minicart extends Component {
 
    render() {
       const itemsCount = !this.props.checkOutProducts.length === 0 ? '' : this.props.checkOutProducts.length
-      const icononcart = this.props.checkOutProducts.length === 0 ? 0 : 1
+      const iconOnCartClass = this.props.checkOutProducts.length === 0 ? "cart-counter-hidden--header" : "cart-counter--header"
       const bagStatus = itemsCount ? itemsCount + " items" : "is embty"
-      const backgroundBlack = this.state.minicart ? "background-black--minicart" : ''
+      const backgroundBlack = this.state.minicart ? "background-black--minicart" : ""
       const totalPrice = this.props.checkOutProducts.length === 0 ? "0.00" : this.props.totalPrice
       return (
          <OutsideClickHandler onOutsideClick={this.hideMinicart}>
             <div className='cart--header' onClick={this.showMinicart} >
-               <span className='cart-counter--header' style={{ opacity: icononcart }}>
+               <span className={iconOnCartClass}>
                   {itemsCount}
                </span>
                <img src={cartIcon} alt='cart logo' />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Attributes from '../Attributes'
-import { add_removeItem, countCartItems } from '../utils'
+import { add_removeItem, countCartItems, currentPrice } from '../utils'
 
 import horizontalLineSmall from "../../images/line-horizontal-small.svg"
 import verticalLineSmall from "../../images/line-vertical-small.svg"
@@ -45,7 +45,7 @@ export default class MinicartItems extends Component {
    })
 
    render() {
-      const { getCheckedProducts, checkOutProducts, getRemovedProduct, id } = this.props
+      const { getCheckedProducts, checkOutProducts, getRemovedProduct, id, currentCurrency, prices } = this.props
       localStorage.setItem("minicartData", JSON.stringify(this.state.radioInput))
       return (
          <div className='product-list--minicart' >
@@ -54,7 +54,7 @@ export default class MinicartItems extends Component {
                   <span>{this.props.brand} </span>{this.props.name}
                </h2>
                <p className='product-price--minicart'>
-                  {this.props.currentCurrency} {this.props.currentPrice}
+                  {currentCurrency} {currentPrice(prices, currentCurrency)}
                </p>
                {this.attributes()}
             </section>

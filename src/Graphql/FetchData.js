@@ -1,47 +1,48 @@
 import { Component } from 'react'
 import * as queries from './queries'
-import axios from 'axios'
+import { result } from '../Components/utils'
 
 export default class FetchData extends Component {
    state = {
-      allData: [],
+      productIdsArr: [],
       categoriesNames: [],
       currencySwitcherData: [],
    }
 
    componentDidMount() {
       const fetchData = async () => {
-         const queryResult = await axios.post(
-            queries.GRAPHQL_API, {
-            query: queries.GET_DATA_QUERY
-         })
+         const productIdsArr =
+            (await result(queries.GET_PRODUCTS_IDS)).category.products
 
-         const queryCurrency = await axios.post(
-            queries.GRAPHQL_API, {
-            query: queries.GET_CURRENCY_QUERY
-         })
+         const currencyData =
+            (await result(queries.GET_CURRENCY_QUERY)).currencies
 
-         const resultData = queryResult.data.data.category
-         const categories = queryResult.data.data.category.products.map(i => i.category)
-         const currencyData = queryCurrency.data.data.currencies
+         const categoriesArr =
+            (await result(queries.GET_CATEGORIES_NAMES)).categories
 
-         const categoriesNames = categories.filter((e, index) => (
-            categories.indexOf(e) === index
-         ))
-         const categoryArray = [resultData.name].concat(categoriesNames)
          this.setState({
-            allData: resultData,
-            categoriesNames: categoryArray,
+            productIdsArr: productIdsArr,
+            categoriesNames: categoriesArr,
             currencySwitcherData: currencyData,
          })
       }
       fetchData()
    }
 
+   componentDidUpdate(prevProps, prevState) {
+      if (prevProps.id !== this.props.id) {
+         const fetchData = async () => {
+            const productsArr = (await result(queries.GET_PRODUCT, { id: this.props.id })).product
+            this.setState({ data: productsArr })
+         }
+         fetchData()
+      }
+   }
+
    render() {
-      const { allData, categoriesNames, currencySwitcherData } = this.state
+      const { productIdsArr, categoriesNames, currencySwitcherData } = this.state
       return (
-         this.props.children({ allData, categoriesNames, currencySwitcherData })
+         this.props.children({ productIdsArr, categoriesNames, currencySwitcherData })
       )
    }
 }
