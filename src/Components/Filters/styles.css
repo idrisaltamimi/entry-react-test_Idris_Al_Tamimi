@@ -101,7 +101,7 @@ input {
   cursor: default;
 }
 
-.color-box {
+.color-box-filter {
   display: flex;
   width: 50px;
   height: 25px;

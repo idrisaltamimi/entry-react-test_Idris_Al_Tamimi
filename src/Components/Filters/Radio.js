@@ -15,7 +15,7 @@ export default class Radio extends Component {
         />
         <label
           htmlFor={id}
-          className='color-box'
+          className='color-box-filter'
           style={{ backgroundColor: color }}
         >
         </label>
