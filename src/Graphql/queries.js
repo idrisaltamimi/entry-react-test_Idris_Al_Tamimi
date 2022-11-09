@@ -47,6 +47,7 @@ export const GET_CATEGORY_PRODUCTS = `
             }
             attributes{
                id
+               name
                type
                items{
                   value

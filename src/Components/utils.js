@@ -52,3 +52,15 @@ export const result = async (graphqlQuery, input) => {
    })
    return queryResult.data.data
 }
+
+export const getAttributesById = (array, att) => array?.map(({ attributes }) => attributes
+   .find(i => i.id === att))
+   .filter(i => i !== undefined)
+   ?.map(i => i.items)
+   ?.map(i => i.map(e => e.id)).join(',').split(',')
+
+export const getAttributesByValue = (array, att) => array?.map(({ attributes }) => attributes
+   .find(i => i.id === att))
+   .filter(i => i !== undefined)
+   ?.map(i => i.items)
+   ?.map(i => i.map(e => e.value)).join(',').split(',')

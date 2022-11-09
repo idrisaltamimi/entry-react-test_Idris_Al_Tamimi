@@ -54,7 +54,9 @@ export default class Header extends Component {
                   <NavLink
                      to={index === 0 ? "/" : `/${category.name}`}
                      key={category.name}
-                     className={({ isActive }) => isActive ? "current--nav" : "normal--nav"}>
+                     className="normal--nav"
+                     exact activeClassName="current--nav"
+                  >
                      {category.name}
                   </NavLink>
                ))}

@@ -1,0 +1,123 @@
+.filters-form * {
+  font-family: 'Raleway', sans-serif;
+}
+
+.filters-form {
+  position: absolute;
+  left: 10px;
+  top: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  accent-color: #5ECE7B;
+  cursor: pointer;
+}
+
+.form-item>label {
+  font-weight: 600;
+  max-width: 80px;
+}
+
+.form-item select {
+  width: 75px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.submit-form-btn {
+  width: 75px;
+  padding: 10px 0;
+  font-weight: 600;
+  background-color: #5ECE7B;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  border: none;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+}
+
+.submit-form-btn:hover {
+  background-color: #5ece7cd7;
+}
+
+.checkbox-label {
+  cursor: pointer;
+}
+
+/* colors radio */
+.colors-container {
+  position: relative;
+}
+
+.color-container {
+  position: relative;
+}
+
+.color-container+.color-container {
+  margin-top: 7px;
+}
+
+.no-color {
+  position: relative;
+  margin-bottom: 7px;
+}
+
+.no-color::before {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  height: 1px;
+  width: 110%;
+  background-color: rgb(167, 0, 0);
+  transform: translate(-50%, -50%) rotate(-25deg);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.colors-container input[type="radio"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+.colors-container input[type="radio"]:checked+label {
+  outline: 1px solid #5ECE7B;
+  border: 1px solid #fff;
+  border-spacing: 1px;
+  cursor: default;
+}
+
+.color-box {
+  display: flex;
+  width: 50px;
+  height: 25px;
+  outline: 1px solid #ffffff;
+  border: 1px solid rgba(0, 0, 0, .1);
+  cursor: pointer;
+}
+
+/* no result */
+.no-product-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.no-product-subtitle {
+  opacity: .6;
+}
